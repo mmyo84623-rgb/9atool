@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>圖片多選</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+<body class="bg-gray-50 min-h-screen pb-28">
+
+  <!-- Header -->
+  <div class="sticky top-0 z-10 bg-white border-b border-gray-200 px-4 py-3">
+    <h1 class="text-lg font-semibold text-gray-800" id="page-title">請選擇項目</h1>
+    <p class="text-sm text-gray-500">可複選，選完後點「確認送出」</p>
+  </div>
+
+  <!-- Image Grid -->
+  <div class="p-4 grid grid-cols-2 gap-3" id="item-grid"></div>
+
+  <!-- Bottom Bar -->
+  <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-3 flex items-center justify-between shadow-lg">
+    <span class="text-sm text-gray-600">
+      已選 <span id="selected-count" class="font-bold text-green-600">0</span> 項
+    </span>
+    <button
+      id="confirm-btn"
+      onclick="sendSelected()"
+      class="bg-green-500 disabled:bg-gray-300 text-white text-sm font-semibold px-6 py-2 rounded-full transition-colors"
+      disabled
+    >
+      確認送出
+    </button>
+  </div>
+
+  <script>
+    // ─── 設定區：修改這裡即可 ──────────────────────────────────────
+    const LIFF_ID = "YOUR_LIFF_ID";        // 換成你的 LIFF ID
+
+    const PAGE_TITLE = "請選擇你喜歡的商品";
+
+    const items = [
+      { id: 1, label: "商品 A", image: "https://placehold.co/300x300/4ade80/ffffff?text=A" },
+      { id: 2, label: "商品 B", image: "https://placehold.co/300x300/60a5fa/ffffff?text=B" },
+      { id: 3, label: "商品 C", image: "https://placehold.co/300x300/f472b6/ffffff?text=C" },
+      { id: 4, label: "商品 D", image: "https://placehold.co/300x300/fb923c/ffffff?text=D" },
+      { id: 5, label: "商品 E", image: "https://placehold.co/300x300/a78bfa/ffffff?text=E" },
+      { id: 6, label: "商品 F", image: "https://placehold.co/300x300/34d399/ffffff?text=F" },
+    ];
+    // ──────────────────────────────────────────────────────────────
+
+    const selected = new Set();
+
+    liff.init({ liffId: LIFF_ID }).catch(err => console.warn("LIFF init failed (dev mode):", err));
+
+    document.getElementById("page-title").textContent = PAGE_TITLE;
+
+    const grid = document.getElementById("item-grid");
+    items.forEach(item => {
+      const card = document.createElement("div");
+      card.id = `card-${item.id}`;
+      card.className = "relative rounded-2xl overflow-hidden border-2 border-transparent cursor-pointer select-none transition-all duration-150";
+      card.innerHTML = `
+        <img src="${item.image}" alt="${item.label}" class="w-full aspect-square object-cover" />
+        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-2 py-2">
+          <p class="text-white text-sm font-medium truncate">${item.label}</p>
+        </div>
+        <div id="check-${item.id}" class="absolute inset-0 bg-green-500/30 hidden items-center justify-center">
+          <div class="bg-green-500 rounded-full w-8 h-8 flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+        </div>
+      `;
+      card.addEventListener("click", () => toggleItem(item.id, card));
+      grid.appendChild(card);
+    });
+
+    function toggleItem(id, card) {
+      if (selected.has(id)) {
+        selected.delete(id);
+        card.classList.remove("border-green-500", "shadow-lg");
+        card.classList.add("border-transparent");
+        const check = document.getElementById(`check-${id}`);
+        check.classList.add("hidden");
+        check.classList.remove("flex");
+      } else {
+        selected.add(id);
+        card.classList.add("border-green-500", "shadow-lg");
+        card.classList.remove("border-transparent");
+        const check = document.getElementById(`check-${id}`);
+        check.classList.remove("hidden");
+        check.classList.add("flex");
+      }
+      document.getElementById("selected-count").textContent = selected.size;
+      document.getElementById("confirm-btn").disabled = selected.size === 0;
+    }
+
+    function sendSelected() {
+      const selectedItems = items.filter(item => selected.has(item.id));
+      const listText = selectedItems.map(item => `• ${item.label}`).join("\n");
+      const message = `您選擇了以下 ${selectedItems.length} 項：\n${listText}`;
+
+      if (liff.isInClient()) {
+        liff.sendMessages([{ type: "text", text: message }])
+          .then(() => liff.closeWindow())
+          .catch(err => alert("送出失敗：" + err));
+      } else {
+        // 瀏覽器開發預覽用
+        alert("[開發預覽]\n\n" + message);
+      }
+    }
+  </script>
+</body>
+</html>
