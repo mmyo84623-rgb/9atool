@@ -15,8 +15,8 @@
     <p class="text-sm text-gray-500">可複選，選完後點「確認送出」</p>
   </div>
 
-  <!-- Image Grid -->
-  <div class="p-4 grid grid-cols-2 gap-3" id="item-grid"></div>
+  <!-- Item Container -->
+  <div class="p-4" id="item-container"></div>
 
   <!-- Bottom Bar -->
   <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-3 flex items-center justify-between shadow-lg">
@@ -35,92 +35,92 @@
 
   <script>
     // ─── 設定區：修改這裡即可 ──────────────────────────────────────
-    const LIFF_ID = "2010080250-vZZCKbrQ";        // 換成你的 LIFF ID
+    const LIFF_ID = "2010080250-vZZCKbrQ";
 
-    const PAGE_TITLE = "請選擇你有做的復健項目";  // 頁面標題
+    const PAGE_TITLE = "請選擇你有做的復健項目";
 
     const items = [
-      { id: 1,  label: "1.手踏車(自動被動式肩肘關節訓練)(兩台)", image: "img/1.手踏車(自動被動式肩肘關節訓練)(兩台).jpg" },
-      { id: 2,  label: "2.上肢關節訓練架(三組)",                 image: "img/2.上肢關節訓練架(三組).jpg" },
-      { id: 3,  label: "3.上肢推拉箱(兩台)",                     image: "img/3.上肢推拉箱(兩台).jpg" },
-      { id: 4,  label: "4.桌上型上肢推舉訓練器(兩台)",           image: "img/4.桌上型上肢推舉訓練器(兩台).jpg" },
-      { id: 5,  label: "5.弧形上肢訓練架(一組)",                 image: "img/5.弧形上肢訓練架(一組).jpg" },
-      { id: 6,  label: "6.水平塔(兩組)",                         image: "img/6.水平塔(兩組).jpg" },
-      { id: 7,  label: "7.垂直塔(三組)",                         image: "img/7.垂直塔(三組).jpg" },
-      { id: 8,  label: "8.滑車(短x5長x2)",                       image: "img/8.滑車(短x5長x2).jpg" },
-      { id: 9,  label: "9.懸吊架3架",                            image: "img/9.懸吊架3架.jpg" },
-      { id: 10, label: "10.肩臂腕訓練機(兩台)",                  image: "img/10.肩臂腕訓練機(兩台).jpg" },
-      { id: 11, label: "11.插棒組",                              image: "img/11.插棒組.jpg" },
-      { id: 12, label: "12.彩色積木組",                          image: "img/12.彩色積木組.jpg" },
-      { id: 13, label: "13.雙色棋",                              image: "img/13.雙色棋.jpg" },
-      { id: 14, label: "14.魔鬼氈方塊",                          image: "img/14.魔鬼氈方塊.jpg" },
-      { id: 15, label: "15.跳棋",                                image: "img/15.跳棋.jpg" },
-      { id: 16, label: "16.套杯組",                              image: "img/16.套杯組.jpg" },
-      { id: 17, label: "17.衣夾",                                image: "img/17.衣夾.jpg" },
-      { id: 18, label: "18.小鐵棒",                              image: "img/18.小鐵棒.jpg" },
-      { id: 19, label: "19.彩色形狀版",                          image: "img/19.彩色形狀版.jpg" },
-      { id: 20, label: "20.牛皮紙圈",                            image: "img/20.牛皮紙圈.jpg" },
-      { id: 21, label: "21.拼豆組",                              image: "img/21.拼豆組.jpg" },
-      { id: 22, label: "22.短繩",                                image: "img/22.短繩.jpg" },
-      { id: 23, label: "23.骰子",                                image: "img/23.骰子.jpg" },
-      { id: 24, label: "24.站立桌(4台)",                         image: "img/24.站立桌(4台).jpg" },
-      { id: 25, label: "25.平衡板",                              image: "img/25.平衡板.jpg" },
-      { id: 26, label: "26.平衡軟墊",                            image: "img/26.平衡軟墊.jpg" },
-      { id: 27, label: "27.助行器x3",                            image: "img/27.助行器x3.jpg" },
-      { id: 28, label: "28.帶輪助行器x2",                        image: "img/28.帶輪助行器x2.jpg" },
-      { id: 29, label: "29.腋下拐x3",                            image: "img/29.腋下拐x3.jpg" },
-      { id: 30, label: "30.四腳拐x4",                            image: "img/30.四腳拐x4.jpg" },
-      { id: 31, label: "31.單拐x2",                              image: "img/31.單拐x2.jpg" },
-      { id: 32, label: "32.拼圖",                                image: "img/32.拼圖.jpg" },
-      { id: 33, label: "33.幾何圖形拼圖",                        image: "img/33.幾何圖形拼圖.jpg" },
-      { id: 34, label: "34.零錢",                                image: "img/34.零錢.jpg" },
-      { id: 35, label: "35.邏輯推理故事卡",                      image: "img/35.邏輯推理故事卡.jpg" },
-      { id: 36, label: "36.雪花片",                              image: "img/36.雪花片.jpg" },
-      { id: 37, label: "37.撲克牌",                              image: "img/37.撲克牌.jpg" },
-      { id: 38, label: "38.穿脫衣褲",                            image: "img/38.穿脫衣褲.jpg" },
-      { id: 39, label: "39.餐具使用",                            image: "img/39.餐具使用.jpg" },
-      { id: 40, label: "40.採購練習",                            image: "img/40.採購練習.jpg" },
-      { id: 41, label: "41.晾摺衣服",                            image: "img/41.晾摺衣服.jpg" },
-      { id: 42, label: "42.跑步機",                              image: "img/42.跑步機.jpg" },
-      { id: 43, label: "43.橢圓機",                              image: "img/43.橢圓機.jpg" },
-      { id: 44, label: "44.平行桿",                              image: "img/44.平行桿.jpg" },
-      { id: 45, label: "45.行走訓練器",                          image: "img/45.行走訓練器.jpg" },
-      { id: 46, label: "46.腳印墊",                              image: "img/46.腳印墊.jpg" },
-      { id: 47, label: "47.坐式橢圓機",                          image: "img/47.坐式橢圓機.jpg" },
-      { id: 48, label: "48.膝部支撐架",                          image: "img/48.膝部支撐架.jpg" },
-      { id: 49, label: "49.懸吊系統",                            image: "img/49.懸吊系統.jpg" },
-      { id: 50, label: "50.上下肢主動式腳踏車",                  image: "img/50.上下肢主動式腳踏車.jpg" },
-      { id: 51, label: "51.上下肢主動腳踏車",                    image: "img/51.上下肢主動腳踏車.jpg" },
-      { id: 52, label: "52.下肢主被動腳踏車",                    image: "img/52.下肢主被動腳踏車.jpg" },
-      { id: 53, label: "53.下肢肌力訓練台(Mini Press)",          image: "img/53.下肢肌力訓練台(Mini Press).jpg" },
-      { id: 54, label: "54.傾斜床",                              image: "img/54.傾斜床.jpg" },
-      { id: 55, label: "55.壁桿",                                image: "img/55.壁桿.jpg" },
-      { id: 56, label: "56.低中高階梯",                          image: "img/56.低中高階梯.jpg" },
-      { id: 57, label: "57.階梯箱",                              image: "img/57.階梯箱.jpg" },
-      { id: 58, label: "58.拉筋板",                              image: "img/58.拉筋板.jpg" },
-      { id: 59, label: "59.楔型板",                              image: "img/59.楔型板.jpg" },
-      { id: 60, label: "60.軟墊",                                image: "img/60.軟墊.jpg" },
-      { id: 61, label: "61.平衡板氣墊",                          image: "img/61.平衡板氣墊.jpg" },
-      { id: 62, label: "62.腰部支撐架",                          image: "img/62.腰部支撐架.jpg" },
-      { id: 63, label: "63.半圓柱",                               image: "img/63.半圓柱.jpg" },
-      { id: 64, label: "64.楔型墊",                              image: "img/64.楔型墊.jpg" },
-      { id: 65, label: "65.滾筒",                                image: "img/65.滾筒.jpg" },
-      { id: 66, label: "66.副木支撐架",                          image: "img/66.副木支撐架.jpg" },
-      { id: 67, label: "67.滑輪",                                image: "img/67.滑輪.jpg" },
-      { id: 68, label: "68.滑輪重錘",                            image: "img/68.滑輪重錘.jpg" },
-      { id: 69, label: "69.撐高器",                              image: "img/69.撐高器.jpg" },
-      { id: 70, label: "70.各式球類",                            image: "img/70.各式球類.jpg" },
-      { id: 71, label: "71.積木棍棒組",                          image: "img/71.積木棍棒組.jpg" },
-      { id: 72, label: "72.套圈圈組",                            image: "img/72.套圈圈組.jpg" },
-      { id: 73, label: "73.插棒穿線組",                          image: "img/73.插棒穿線組.jpg" },
-      { id: 74, label: "74.插板組",                              image: "img/74.插板組.jpg" },
-      { id: 75, label: "75.翻轉錐形杯組",                        image: "img/75.翻轉錐形杯組.jpg" },
-      { id: 76, label: "76.益智積木組",                          image: "img/76.益智積木組.jpg" },
-      { id: 77, label: "77.木釘插板",                            image: "img/77.木釘插板.jpg" },
-      { id: 78, label: "78.益智配對盤",                          image: "img/78.益智配對盤.jpg" },
-      { id: 79, label: "79.錢幣模型",                            image: "img/79.錢幣模型.jpg" },
-      { id: 80, label: "80.麻將組",                              image: "img/80.麻將組.jpg" },
-      { id: 81, label: "81.低週波治療器(電療)",                  image: "img/81.低週波治療器(電療).jpg" },
+      { id: 1,  category: "職能治療", label: "1.手踏車(自動被動式肩肘關節訓練)(兩台)", image: "img/1.手踏車(自動被動式肩肘關節訓練)(兩台).jpg" },
+      { id: 2,  category: "職能治療", label: "2.上肢關節訓練架(三組)",                 image: "img/2.上肢關節訓練架(三組).jpg" },
+      { id: 3,  category: "職能治療", label: "3.上肢推拉箱(兩台)",                     image: "img/3.上肢推拉箱(兩台).jpg" },
+      { id: 4,  category: "職能治療", label: "4.桌上型上肢推舉訓練器(兩台)",           image: "img/4.桌上型上肢推舉訓練器(兩台).jpg" },
+      { id: 5,  category: "職能治療", label: "5.弧形上肢訓練架(一組)",                 image: "img/5.弧形上肢訓練架(一組).jpg" },
+      { id: 6,  category: "職能治療", label: "6.水平塔(兩組)",                         image: "img/6.水平塔(兩組).jpg" },
+      { id: 7,  category: "職能治療", label: "7.垂直塔(三組)",                         image: "img/7.垂直塔(三組).jpg" },
+      { id: 8,  category: "職能治療", label: "8.滑車(短x5長x2)",                       image: "img/8.滑車(短x5長x2).jpg" },
+      { id: 9,  category: "職能治療", label: "9.懸吊架3架",                            image: "img/9.懸吊架3架.jpg" },
+      { id: 10, category: "職能治療", label: "10.肩臂腕訓練機(兩台)",                  image: "img/10.肩臂腕訓練機(兩台).jpg" },
+      { id: 11, category: "職能治療", label: "11.插棒組",                              image: "img/11.插棒組.jpg" },
+      { id: 12, category: "職能治療", label: "12.彩色積木組",                          image: "img/12.彩色積木組.jpg" },
+      { id: 13, category: "職能治療", label: "13.雙色棋",                              image: "img/13.雙色棋.jpg" },
+      { id: 14, category: "職能治療", label: "14.魔鬼氈方塊",                          image: "img/14.魔鬼氈方塊.jpg" },
+      { id: 15, category: "職能治療", label: "15.跳棋",                                image: "img/15.跳棋.jpg" },
+      { id: 16, category: "職能治療", label: "16.套杯組",                              image: "img/16.套杯組.jpg" },
+      { id: 17, category: "職能治療", label: "17.衣夾",                                image: "img/17.衣夾.jpg" },
+      { id: 18, category: "職能治療", label: "18.小鐵棒",                              image: "img/18.小鐵棒.jpg" },
+      { id: 19, category: "職能治療", label: "19.彩色形狀版",                          image: "img/19.彩色形狀版.jpg" },
+      { id: 20, category: "職能治療", label: "20.牛皮紙圈",                            image: "img/20.牛皮紙圈.jpg" },
+      { id: 21, category: "職能治療", label: "21.拼豆組",                              image: "img/21.拼豆組.jpg" },
+      { id: 22, category: "職能治療", label: "22.短繩",                                image: "img/22.短繩.jpg" },
+      { id: 23, category: "職能治療", label: "23.骰子",                                image: "img/23.骰子.jpg" },
+      { id: 24, category: "職能治療", label: "24.站立桌(4台)",                         image: "img/24.站立桌(4台).jpg" },
+      { id: 25, category: "職能治療", label: "25.平衡板",                              image: "img/25.平衡板.jpg" },
+      { id: 26, category: "職能治療", label: "26.平衡軟墊",                            image: "img/26.平衡軟墊.jpg" },
+      { id: 27, category: "職能治療", label: "27.助行器x3",                            image: "img/27.助行器x3.jpg" },
+      { id: 28, category: "職能治療", label: "28.帶輪助行器x2",                        image: "img/28.帶輪助行器x2.jpg" },
+      { id: 29, category: "職能治療", label: "29.腋下拐x3",                            image: "img/29.腋下拐x3.jpg" },
+      { id: 30, category: "職能治療", label: "30.四腳拐x4",                            image: "img/30.四腳拐x4.jpg" },
+      { id: 31, category: "職能治療", label: "31.單拐x2",                              image: "img/31.單拐x2.jpg" },
+      { id: 32, category: "職能治療", label: "32.拼圖",                                image: "img/32.拼圖.jpg" },
+      { id: 33, category: "職能治療", label: "33.幾何圖形拼圖",                        image: "img/33.幾何圖形拼圖.jpg" },
+      { id: 34, category: "職能治療", label: "34.零錢",                                image: "img/34.零錢.jpg" },
+      { id: 35, category: "職能治療", label: "35.邏輯推理故事卡",                      image: "img/35.邏輯推理故事卡.jpg" },
+      { id: 36, category: "職能治療", label: "36.雪花片",                              image: "img/36.雪花片.jpg" },
+      { id: 37, category: "職能治療", label: "37.撲克牌",                              image: "img/37.撲克牌.jpg" },
+      { id: 38, category: "職能治療", label: "38.穿脫衣褲",                            image: "img/38.穿脫衣褲.jpg" },
+      { id: 39, category: "職能治療", label: "39.餐具使用",                            image: "img/39.餐具使用.jpg" },
+      { id: 40, category: "職能治療", label: "40.採購練習",                            image: "img/40.採購練習.jpg" },
+      { id: 41, category: "職能治療", label: "41.晾摺衣服",                            image: "img/41.晾摺衣服.jpg" },
+      { id: 42, category: "物理治療", label: "42.跑步機",                              image: "img/42.跑步機.jpg" },
+      { id: 43, category: "物理治療", label: "43.橢圓機",                              image: "img/43.橢圓機.jpg" },
+      { id: 44, category: "物理治療", label: "44.平行桿",                              image: "img/44.平行桿.jpg" },
+      { id: 45, category: "物理治療", label: "45.行走訓練器",                          image: "img/45.行走訓練器.jpg" },
+      { id: 46, category: "物理治療", label: "46.腳印墊",                              image: "img/46.腳印墊.jpg" },
+      { id: 47, category: "物理治療", label: "47.坐式橢圓機",                          image: "img/47.坐式橢圓機.jpg" },
+      { id: 48, category: "物理治療", label: "48.膝部支撐架",                          image: "img/48.膝部支撐架.jpg" },
+      { id: 49, category: "物理治療", label: "49.懸吊系統",                            image: "img/49.懸吊系統.jpg" },
+      { id: 50, category: "物理治療", label: "50.上下肢主動式腳踏車",                  image: "img/50.上下肢主動式腳踏車.jpg" },
+      { id: 51, category: "物理治療", label: "51.上下肢主動腳踏車",                    image: "img/51.上下肢主動腳踏車.jpg" },
+      { id: 52, category: "物理治療", label: "52.下肢主被動腳踏車",                    image: "img/52.下肢主被動腳踏車.jpg" },
+      { id: 53, category: "物理治療", label: "53.下肢肌力訓練台(Mini Press)",          image: "img/53.下肢肌力訓練台(Mini Press).jpg" },
+      { id: 54, category: "物理治療", label: "54.傾斜床",                              image: "img/54.傾斜床.jpg" },
+      { id: 55, category: "物理治療", label: "55.壁桿",                                image: "img/55.壁桿.jpg" },
+      { id: 56, category: "物理治療", label: "56.低中高階梯",                          image: "img/56.低中高階梯.jpg" },
+      { id: 57, category: "物理治療", label: "57.階梯箱",                              image: "img/57.階梯箱.jpg" },
+      { id: 58, category: "物理治療", label: "58.拉筋板",                              image: "img/58.拉筋板.jpg" },
+      { id: 59, category: "物理治療", label: "59.楔型板",                              image: "img/59.楔型板.jpg" },
+      { id: 60, category: "物理治療", label: "60.軟墊",                                image: "img/60.軟墊.jpg" },
+      { id: 61, category: "物理治療", label: "61.平衡板氣墊",                          image: "img/61.平衡板氣墊.jpg" },
+      { id: 62, category: "物理治療", label: "62.腰部支撐架",                          image: "img/62.腰部支撐架.jpg" },
+      { id: 63, category: "物理治療", label: "63.半圓柱",                              image: "img/63.半圓柱.jpg" },
+      { id: 64, category: "物理治療", label: "64.楔型墊",                              image: "img/64.楔型墊.jpg" },
+      { id: 65, category: "物理治療", label: "65.滾筒",                                image: "img/65.滾筒.jpg" },
+      { id: 66, category: "物理治療", label: "66.副木支撐架",                          image: "img/66.副木支撐架.jpg" },
+      { id: 67, category: "物理治療", label: "67.滑輪",                                image: "img/67.滑輪.jpg" },
+      { id: 68, category: "物理治療", label: "68.滑輪重錘",                            image: "img/68.滑輪重錘.jpg" },
+      { id: 69, category: "物理治療", label: "69.撐高器",                              image: "img/69.撐高器.jpg" },
+      { id: 70, category: "物理治療", label: "70.各式球類",                            image: "img/70.各式球類.jpg" },
+      { id: 71, category: "物理治療", label: "71.積木棍棒組",                          image: "img/71.積木棍棒組.jpg" },
+      { id: 72, category: "物理治療", label: "72.套圈圈組",                            image: "img/72.套圈圈組.jpg" },
+      { id: 73, category: "物理治療", label: "73.插棒穿線組",                          image: "img/73.插棒穿線組.jpg" },
+      { id: 74, category: "物理治療", label: "74.插板組",                              image: "img/74.插板組.jpg" },
+      { id: 75, category: "物理治療", label: "75.翻轉錐形杯組",                        image: "img/75.翻轉錐形杯組.jpg" },
+      { id: 76, category: "物理治療", label: "76.益智積木組",                          image: "img/76.益智積木組.jpg" },
+      { id: 77, category: "物理治療", label: "77.木釘插板",                            image: "img/77.木釘插板.jpg" },
+      { id: 78, category: "物理治療", label: "78.益智配對盤",                          image: "img/78.益智配對盤.jpg" },
+      { id: 79, category: "物理治療", label: "79.錢幣模型",                            image: "img/79.錢幣模型.jpg" },
+      { id: 80, category: "物理治療", label: "80.麻將組",                              image: "img/80.麻將組.jpg" },
+      { id: 81, category: "物理治療", label: "81.低週波治療器(電療)",                  image: "img/81.低週波治療器(電療).jpg" },
     ];
     // ──────────────────────────────────────────────────────────────
 
@@ -134,26 +134,64 @@
 
     document.getElementById("page-title").textContent = PAGE_TITLE;
 
-    const grid = document.getElementById("item-grid");
-    items.forEach(item => {
-      const card = document.createElement("div");
-      card.id = `card-${item.id}`;
-      card.className = "relative rounded-2xl overflow-hidden border-2 border-transparent cursor-pointer select-none transition-all duration-150";
-      card.innerHTML = `
-        <img src="${encodeImagePath(item.image)}" alt="${item.label}" class="w-full aspect-square object-cover" />
-        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-2 py-2">
-          <p class="text-white text-sm font-medium truncate">${item.label}</p>
-        </div>
-        <div id="check-${item.id}" class="absolute inset-0 bg-green-500/30 hidden items-center justify-center">
-          <div class="bg-green-500 rounded-full w-8 h-8 flex items-center justify-center">
-            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-            </svg>
-          </div>
-        </div>
+    const CATEGORIES = ["職能治療", "物理治療"];
+    const CATEGORY_COLOR = {
+      "職能治療": "bg-blue-500",
+      "物理治療": "bg-orange-500",
+    };
+
+    const container = document.getElementById("item-container");
+
+    CATEGORIES.forEach(cat => {
+      const catItems = items.filter(item => item.category === cat);
+
+      const section = document.createElement("div");
+      section.className = "mb-4";
+
+      // Category header (collapsible toggle)
+      const header = document.createElement("button");
+      header.className = `w-full flex items-center justify-between ${CATEGORY_COLOR[cat]} text-white px-4 py-3 rounded-xl mb-3`;
+      header.innerHTML = `
+        <span class="font-semibold text-base">${cat}（${catItems.length} 項）</span>
+        <svg id="arrow-${cat}" class="w-5 h-5 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+        </svg>
       `;
-      card.addEventListener("click", () => toggleItem(item.id, card));
-      grid.appendChild(card);
+
+      const grid = document.createElement("div");
+      grid.id = `grid-${cat}`;
+      grid.className = "grid grid-cols-2 gap-3";
+
+      catItems.forEach(item => {
+        const card = document.createElement("div");
+        card.id = `card-${item.id}`;
+        card.className = "relative rounded-2xl overflow-hidden border-2 border-transparent cursor-pointer select-none transition-all duration-150";
+        card.innerHTML = `
+          <img src="${encodeImagePath(item.image)}" alt="${item.label}" class="w-full aspect-square object-cover" />
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-2 py-2">
+            <p class="text-white text-sm font-medium truncate">${item.label}</p>
+          </div>
+          <div id="check-${item.id}" class="absolute inset-0 bg-green-500/30 hidden items-center justify-center">
+            <div class="bg-green-500 rounded-full w-8 h-8 flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+          </div>
+        `;
+        card.addEventListener("click", () => toggleItem(item.id, card));
+        grid.appendChild(card);
+      });
+
+      header.addEventListener("click", () => {
+        const isHidden = grid.classList.contains("hidden");
+        grid.classList.toggle("hidden");
+        document.getElementById(`arrow-${cat}`).style.transform = isHidden ? "" : "rotate(-90deg)";
+      });
+
+      section.appendChild(header);
+      section.appendChild(grid);
+      container.appendChild(section);
     });
 
     function toggleItem(id, card) {
@@ -181,12 +219,13 @@
       const listText = selectedItems.map(item => `• ${item.label}`).join("\n");
       const message = `復健項目,您選擇了以下 ${selectedItems.length} 項：\n${listText}`;
 
+      navigator.clipboard.writeText(message).catch(() => {});
+
       if (liff.isInClient()) {
         liff.sendMessages([{ type: "text", text: message }])
           .then(() => liff.closeWindow())
           .catch(err => alert("送出失敗：" + err));
       } else {
-        // 瀏覽器開發預覽用
         alert("[開發預覽]\n\n" + message);
       }
     }
