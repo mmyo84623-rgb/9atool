@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>圖片多選</title>
+  <title>復健工具</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 </head>
@@ -37,15 +37,90 @@
     // ─── 設定區：修改這裡即可 ──────────────────────────────────────
     const LIFF_ID = "2010080250-vZZCKbrQ";        // 換成你的 LIFF ID
 
-    const PAGE_TITLE = "請選擇你喜歡的商品";
+    const PAGE_TITLE = "請選擇你有做的復健項目";  // 頁面標題
 
     const items = [
-      { id: 1, label: "商品 A", image: "https://placehold.co/300x300/4ade80/ffffff?text=A" },
-      { id: 2, label: "商品 B", image: "https://placehold.co/300x300/60a5fa/ffffff?text=B" },
-      { id: 3, label: "商品 C", image: "https://placehold.co/300x300/f472b6/ffffff?text=C" },
-      { id: 4, label: "商品 D", image: "https://placehold.co/300x300/fb923c/ffffff?text=D" },
-      { id: 5, label: "商品 E", image: "https://placehold.co/300x300/a78bfa/ffffff?text=E" },
-      { id: 6, label: "商品 F", image: "https://placehold.co/300x300/34d399/ffffff?text=F" },
+      { id: 1,  label: "1.手踏車(自動被動式肩肘關節訓練)(兩台)", image: "img-2/1.手踏車(自動被動式肩肘關節訓練)(兩台).jpg" },
+      { id: 2,  label: "2.上肢關節訓練架(三組)",                 image: "img-2/2.上肢關節訓練架(三組).jpg" },
+      { id: 3,  label: "3.上肢推拉箱(兩台)",                     image: "img-2/3.上肢推拉箱(兩台).jpg" },
+      { id: 4,  label: "4.桌上型上肢推舉訓練器(兩台)",           image: "img-2/4.桌上型上肢推舉訓練器(兩台).jpg" },
+      { id: 5,  label: "5.弧形上肢訓練架(一組)",                 image: "img-2/5.弧形上肢訓練架(一組).jpg" },
+      { id: 6,  label: "6.水平塔(兩組)",                         image: "img-2/6.水平塔(兩組).jpg" },
+      { id: 7,  label: "7.垂直塔(三組)",                         image: "img-2/7.垂直塔(三組).jpg" },
+      { id: 8,  label: "8.滑車(短x5長x2)",                       image: "img-2/8.滑車(短x5長x2).jpg" },
+      { id: 9,  label: "9.懸吊架3架",                            image: "img-2/9.懸吊架3架.jpg" },
+      { id: 10, label: "10.肩臂腕訓練機(兩台)",                  image: "img-2/10.肩臂腕訓練機(兩台).jpg" },
+      { id: 11, label: "11.插棒組",                              image: "img-2/11.插棒組.jpg" },
+      { id: 12, label: "12.彩色積木組",                          image: "img-2/12.彩色積木組.jpg" },
+      { id: 13, label: "13.雙色棋",                              image: "img-2/13.雙色棋.jpg" },
+      { id: 14, label: "14.魔鬼氈方塊",                          image: "img-2/14.魔鬼氈方塊.jpg" },
+      { id: 15, label: "15.跳棋",                                image: "img-2/15.跳棋.jpg" },
+      { id: 16, label: "16.套杯組",                              image: "img-2/16.套杯組.jpg" },
+      { id: 17, label: "17.衣夾",                                image: "img-2/17.衣夾.jpg" },
+      { id: 18, label: "18.小鐵棒",                              image: "img-2/18.小鐵棒.jpg" },
+      { id: 19, label: "19.彩色形狀版",                          image: "img-2/19.彩色形狀版.jpg" },
+      { id: 20, label: "20.牛皮紙圈",                            image: "img-2/20.牛皮紙圈.jpg" },
+      { id: 21, label: "21.拼豆組",                              image: "img-2/21.拼豆組.jpg" },
+      { id: 22, label: "22.短繩",                                image: "img-2/22.短繩.jpg" },
+      { id: 23, label: "23.骰子",                                image: "img-2/23.骰子.jpg" },
+      { id: 24, label: "24.站立桌(4台)",                         image: "img-2/24.站立桌(4台).jpg" },
+      { id: 25, label: "25.平衡板",                              image: "img-2/25.平衡板.jpg" },
+      { id: 26, label: "26.平衡軟墊",                            image: "img-2/26.平衡軟墊.jpg" },
+      { id: 27, label: "27.助行器x3",                            image: "img-2/27.助行器x3.jpg" },
+      { id: 28, label: "28.帶輪助行器x2",                        image: "img-2/28.帶輪助行器x2.jpg" },
+      { id: 29, label: "29.腋下拐x3",                            image: "img-2/29.腋下拐x3.jpg" },
+      { id: 30, label: "30.四腳拐x4",                            image: "img-2/30.四腳拐x4.jpg" },
+      { id: 31, label: "31.單拐x2",                              image: "img-2/31.單拐x2.jpg" },
+      { id: 32, label: "32.拼圖",                                image: "img-2/32.拼圖.jpg" },
+      { id: 33, label: "33.幾何圖形拼圖",                        image: "img-2/33.幾何圖形拼圖.jpg" },
+      { id: 34, label: "34.零錢",                                image: "img-2/34.零錢.jpg" },
+      { id: 35, label: "35.邏輯推理故事卡",                      image: "img-2/35.邏輯推理故事卡.jpg" },
+      { id: 36, label: "36.雪花片",                              image: "img-2/36.雪花片.jpg" },
+      { id: 37, label: "37.撲克牌",                              image: "img-2/37.撲克牌.jpg" },
+      { id: 38, label: "38.穿脫衣褲",                            image: "img-2/38.穿脫衣褲.jpg" },
+      { id: 39, label: "39.餐具使用",                            image: "img-2/39.餐具使用.jpg" },
+      { id: 40, label: "40.採購練習",                            image: "img-2/40.採購練習.jpg" },
+      { id: 41, label: "41.晾摺衣服",                            image: "img-2/41.晾摺衣服.jpg" },
+      { id: 42, label: "42.跑步機",                              image: "img-2/42.跑步機.jpg" },
+      { id: 43, label: "43.橢圓機",                              image: "img-2/43.橢圓機.jpg" },
+      { id: 44, label: "44.平行桿",                              image: "img-2/44.平行桿.jpg" },
+      { id: 45, label: "45.行走訓練器",                          image: "img-2/45.行走訓練器.jpg" },
+      { id: 46, label: "46.腳印墊",                              image: "img-2/46.腳印墊.jpg" },
+      { id: 47, label: "47.坐式橢圓機",                          image: "img-2/47.坐式橢圓機.jpg" },
+      { id: 48, label: "48.膝部支撐架",                          image: "img-2/48.膝部支撐架.jpg" },
+      { id: 49, label: "49.懸吊系統",                            image: "img-2/49.懸吊系統.jpg" },
+      { id: 50, label: "50.上下肢主動式腳踏車",                  image: "img-2/50.上下肢主動式腳踏車.jpg" },
+      { id: 51, label: "51.上下肢主動腳踏車",                    image: "img-2/51.上下肢主動腳踏車.jpg" },
+      { id: 52, label: "52.下肢主被動腳踏車",                    image: "img-2/52.下肢主被動腳踏車.jpg" },
+      { id: 53, label: "53.下肢肌力訓練台(Mini Press)",          image: "img-2/53.下肢肌力訓練台(Mini Press).jpg" },
+      { id: 54, label: "54.傾斜床",                              image: "img-2/54.傾斜床.jpg" },
+      { id: 55, label: "55.壁桿",                                image: "img-2/55.壁桿.jpg" },
+      { id: 56, label: "56.低中高階梯",                          image: "img-2/56.低中高階梯.jpg" },
+      { id: 57, label: "57.階梯箱",                              image: "img-2/57.階梯箱.jpg" },
+      { id: 58, label: "58.拉筋板",                              image: "img-2/58.拉筋板.jpg" },
+      { id: 59, label: "59.楔型板",                              image: "img-2/59.楔型板.jpg" },
+      { id: 60, label: "60.軟墊",                                image: "img-2/60.軟墊.jpg" },
+      { id: 61, label: "61.平衡板氣墊",                          image: "img-2/61.平衡板氣墊.jpg" },
+      { id: 62, label: "62.腰部支撐架",                          image: "img-2/62.腰部支撐架.jpg" },
+      { id: 63, label: "63.半圓柱",                               image: "img-2/63.半圓柱(1).jpg" },
+      { id: 65, label: "64.楔型墊",                              image: "img-2/64.楔型墊.jpg" },
+      { id: 66, label: "65.滾筒",                                image: "img-2/65.滾筒.jpg" },
+      { id: 68, label: "66.副木支撐架",                          image: "img-2/66.副木支撐架(2).jpg" },
+      { id: 69, label: "67.滑輪",                                image: "img-2/67.滑輪.jpg" },
+      { id: 70, label: "68.滑輪重錘",                            image: "img-2/68.滑輪重錘.jpg" },
+      { id: 71, label: "69.撐高器",                              image: "img-2/69.撐高器.jpg" },
+      { id: 72, label: "70.各式球類",                            image: "img-2/70.各式球類.jpg" },
+      { id: 73, label: "71.積木棍棒組",                          image: "img-2/71.積木棍棒組.jpg" },
+      { id: 74, label: "72.套圈圈組",                            image: "img/72.套圈圈組.jpg" },
+      { id: 75, label: "73.插棒穿線組",                          image: "img/73.插棒穿線組.jpg" },
+      { id: 76, label: "74.插板組",                              image: "img/74.插板組.jpg" },
+      { id: 77, label: "75.翻轉錐形杯組",                        image: "img/75.翻轉錐形杯組.jpg" },
+      { id: 78, label: "76.益智積木組",                          image: "img/76.益智積木組.jpg" },
+      { id: 79, label: "77.木釘插板",                            image: "img/77.木釘插板.jpg" },
+      { id: 80, label: "78.益智配對盤",                          image: "img/78.益智配對盤.jpg" },
+      { id: 81, label: "79.錢幣模型",                            image: "img/79.錢幣模型.jpg" },
+      { id: 82, label: "80.麻將組",                              image: "img/80.麻將組.jpg" },
+      { id: 83, label: "81.低週波治療器(電療)",                  image: "img/81.低週波治療器(電療).jpg" },
     ];
     // ──────────────────────────────────────────────────────────────
 
@@ -100,7 +175,7 @@
     function sendSelected() {
       const selectedItems = items.filter(item => selected.has(item.id));
       const listText = selectedItems.map(item => `• ${item.label}`).join("\n");
-      const message = `您選擇了以下 ${selectedItems.length} 項：\n${listText}`;
+      const message = `復健項目,您選擇了以下 ${selectedItems.length} 項：\n${listText}`;
 
       if (liff.isInClient()) {
         liff.sendMessages([{ type: "text", text: message }])
