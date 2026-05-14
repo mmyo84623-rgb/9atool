@@ -15,6 +15,21 @@
     <p class="text-sm text-gray-500">可複選，選完後點「確認送出」</p>
   </div>
 
+  <!-- 床號選單 -->
+  <div class="px-4 pt-4">
+    <label class="block text-sm font-semibold text-gray-700 mb-1">床號</label>
+    <div class="relative" id="bed-dropdown">
+      <input
+        id="bed-input"
+        type="text"
+        placeholder="輸入或搜尋床號…"
+        autocomplete="off"
+        class="w-full border border-gray-300 rounded-xl px-3 py-2 text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
+      <div id="bed-list" class="absolute z-20 w-full bg-white border border-gray-200 rounded-xl shadow-lg mt-1 max-h-52 overflow-y-auto hidden"></div>
+    </div>
+  </div>
+
   <!-- Item Container -->
   <div class="p-4" id="item-container"></div>
 
@@ -134,6 +149,46 @@
 
     document.getElementById("page-title").textContent = PAGE_TITLE;
 
+    const BED_LIST = [
+      "2902","2903-1","2903-2","2905-1","2905-2",
+      "2906-1","2906-2","2906-3","2906-5",
+      "2907-1","2907-2","2907-3","2907-5",
+      "2908-1","2908-2","2908-3","2908-5",
+      "2909-1","2909-2","2909-3","2909-5",
+      "2910-1","2910-2","2910-3","2910-5",
+      "2911-2","2911-3","2911-5",
+      "2912-1","2912-2","2913-1","2913-2",
+      "2915-1","2915-2","2916-1","2916-2",
+      "2917-1","2917-2","2918-1","2918-2",
+      "2919-1","2919-2","2920-1","2920-2",
+      "2921-1","2921-2",
+    ];
+
+    let selectedBed = "";
+    const bedInput = document.getElementById("bed-input");
+    const bedList  = document.getElementById("bed-list");
+
+    function renderBedOptions(filter) {
+      const matches = BED_LIST.filter(b => b.includes(filter));
+      bedList.innerHTML = matches.length
+        ? matches.map(b => `<div class="bed-option px-3 py-2 cursor-pointer hover:bg-blue-50 text-gray-800 text-sm" data-value="${b}">${b}</div>`).join("")
+        : `<div class="px-3 py-2 text-gray-400 text-sm">無符合結果</div>`;
+      bedList.classList.remove("hidden");
+    }
+
+    bedInput.addEventListener("focus", () => renderBedOptions(bedInput.value));
+    bedInput.addEventListener("input", () => { selectedBed = ""; renderBedOptions(bedInput.value); });
+    bedList.addEventListener("click", e => {
+      const opt = e.target.closest(".bed-option");
+      if (!opt) return;
+      selectedBed = opt.dataset.value;
+      bedInput.value = selectedBed;
+      bedList.classList.add("hidden");
+    });
+    document.addEventListener("click", e => {
+      if (!document.getElementById("bed-dropdown").contains(e.target)) bedList.classList.add("hidden");
+    });
+
     const CATEGORIES = ["職能治療", "物理治療"];
     const CATEGORY_COLOR = {
       "職能治療": "bg-blue-500",
@@ -215,9 +270,11 @@
     }
 
     function sendSelected() {
+      const bed = selectedBed;
+      if (!bed) { alert("請先選擇床號"); return; }
       const selectedItems = items.filter(item => selected.has(item.id));
       const listText = selectedItems.map(item => `• ${item.label}`).join("\n");
-      const message = `復健項目,您選擇了以下 ${selectedItems.length} 項：\n${listText}`;
+      const message = `床號：${bed}\n復健項目,您選擇了以下 ${selectedItems.length} 項：\n${listText}`;
 
       navigator.clipboard.writeText(message).catch(() => {});
 
@@ -226,7 +283,7 @@
           .then(() => liff.closeWindow())
           .catch(err => alert("送出失敗：" + err));
       } else {
-        alert("[開發預覽]\n\n" + message);
+        alert(message);
       }
     }
   </script>
